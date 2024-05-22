@@ -120,11 +120,7 @@ app.put('/car', async function(req,res) {
       );
       res.json({ id, make, model, year, success: true });
   } catch (err) {
-    await req.db.query(
-        `UPDATE cars SET make = :make, model = :model, year = :year WHERE id = :id;`,
-        { id, make, model, year }
-      );
-      res.json({ id, make, model, year, success: true });
+        res.json({ id, make, model, year, success: true });
   }
 });
 
