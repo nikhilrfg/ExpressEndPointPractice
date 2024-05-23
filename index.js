@@ -44,10 +44,10 @@ app.get("/", (req, res) => {
   });
 
   // Fetch all cars where deleted_flag is 0
-app.get('/cars', async function(req, res) {
+app.get('/car', async function(req, res) {
   try {
     const [cars] = await req.db.query(
-        `SELECT * FROM cars WHERE deleted_flag = 0;`
+        `SELECT * FROM car WHERE deleted_flag = 0;`
     );
     res.json({ cars });
     // console.log('/cars/:id')
@@ -96,7 +96,7 @@ app.delete('/car/:id', async function(req,res) {
     const { id: carId } = req.params;
   try {
     // console.log('req.params /car/:id', req.params)
-    await req.db.query(`UPDATE cars SET deleted_flag = 1 WHERE id = :carId`, {
+    await req.db.query(`UPDATE car SET deleted_flag = 1 WHERE id = :carId`, {
         carId,
       });
       res.json({ success: true });
@@ -115,12 +115,12 @@ app.put('/car', async function(req,res) {
     const { id, make, model, year } = req.body;
   try {
     await req.db.query(
-        `UPDATE cars SET make = :make, model = :model, year = :year WHERE id = :id;`,
+        `UPDATE car SET make = :make, model = :model, year = :year WHERE id = :id;`,
         { id, make, model, year }
       );
       res.json({ id, make, model, year, success: true });
   } catch (err) {
-        res.json({ id, make, model, year, success: true });
+        res.json(err);
   }
 });
 
